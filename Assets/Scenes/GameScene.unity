@@ -561,6 +561,49 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &645448905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 645448906}
+  m_Layer: 0
+  m_Name: PlayerObjectHoldPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &645448906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645448905}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1450446349}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &741537997 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7919359099569988021, guid: fa21c90aa59c9c1458fd1ba107a4620e,
+    type: 3}
+  m_PrefabInstance: {fileID: 343556337}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62c8d2b1d08243e4cbbbac2c345adf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,6 +882,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 645448906}
   - {fileID: 1477092277}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -860,6 +904,7 @@ MonoBehaviour:
   CountersLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerObjectHoldPoint: {fileID: 645448906}
 --- !u!1 &1477092276 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3294758251327466535, guid: 1c5dda3c7cd3cf742afcade5419faeab,
@@ -1072,9 +1117,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7919359099569988021, guid: fa21c90aa59c9c1458fd1ba107a4620e,
         type: 3}
+      propertyPath: testing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7919359099569988021, guid: fa21c90aa59c9c1458fd1ba107a4620e,
+        type: 3}
       propertyPath: kitchenObjectSO
       value: 
       objectReference: {fileID: 11400000, guid: fae676ff68fa8f14f90d76dec09d4d02,
         type: 2}
+    - target: {fileID: 7919359099569988021, guid: fa21c90aa59c9c1458fd1ba107a4620e,
+        type: 3}
+      propertyPath: secondClearCounter
+      value: 
+      objectReference: {fileID: 741537997}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa21c90aa59c9c1458fd1ba107a4620e, type: 3}
