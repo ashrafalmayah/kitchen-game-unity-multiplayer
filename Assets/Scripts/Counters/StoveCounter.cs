@@ -1,10 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class StoveCounter : BaseCounter {
 
-    private enum State {
+    public event EventHandler<OnStateChangedEventsArgs> OnStateChanged;
+    public class OnStateChangedEventsArgs : EventArgs{
+        public State state;
+    }
+
+    public enum State {
         Idle,
         Frying,
         Fried,
@@ -36,6 +42,9 @@ public class StoveCounter : BaseCounter {
                         GetKitchenObject().DestroySelf();
                         KitchenObject.SpawnKitchenObject(fryingRecipeSO.output, this);
                         state = State.Fried;
+                        OnStateChanged?.Invoke(this, new OnStateChangedEventsArgs{
+                            state = state
+                        });
                         burningTimer = 0f;
                         burningRecipeSO = GetBurningRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
                     }
@@ -46,6 +55,9 @@ public class StoveCounter : BaseCounter {
                         GetKitchenObject().DestroySelf();
                         KitchenObject.SpawnKitchenObject(burningRecipeSO.output, this);
                         state = State.Burned;
+                        OnStateChanged?.Invoke(this, new OnStateChangedEventsArgs{
+                            state = state
+                        });
                     }
                     break;
                 case State.Burned:
@@ -65,6 +77,9 @@ public class StoveCounter : BaseCounter {
                     player.GetKitchenObject().SetKitchenObjectParent(this);
                     fryingTimer = 0;
                     state = State.Frying;
+                    OnStateChanged?.Invoke(this, new OnStateChangedEventsArgs{
+                        state = state
+                    });
                     fryingRecipeSO = GetFryingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
                 }
             }
@@ -76,6 +91,9 @@ public class StoveCounter : BaseCounter {
                 //Pick Up!!
                 GetKitchenObject().SetKitchenObjectParent(player);
                 state = State.Idle;
+                OnStateChanged?.Invoke(this, new OnStateChangedEventsArgs{
+                    state = state
+                });
             }
         }
     }
