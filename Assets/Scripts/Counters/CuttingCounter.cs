@@ -6,6 +6,7 @@ using UnityEngine;
 public class CuttingCounter : BaseCounter
 {
     public event EventHandler<OnProgressChangedEvenArgs> OnProgressChanged;
+    
     public class OnProgressChangedEvenArgs : EventArgs{
         public float cuttingProgressNormalized;
     }
