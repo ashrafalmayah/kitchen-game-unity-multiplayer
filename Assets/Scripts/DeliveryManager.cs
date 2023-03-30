@@ -5,10 +5,14 @@ using UnityEngine;
 
 public class DeliveryManager : MonoBehaviour
 {
+    public static DeliveryManager Instance {get; private set;}
+
+
     public event EventHandler OnRecipeSpawned;
     public event EventHandler OnRecipeCompleted;
+    public event EventHandler OnDeliverySuccess;
+    public event EventHandler OnDeliveryFail;
 
-    public static DeliveryManager Instance {get; private set;}
 
     [SerializeField]private RecipeListSO recipeListSO;
     private List<RecipeSO> waitingRecipeSOList;
@@ -62,12 +66,14 @@ public class DeliveryManager : MonoBehaviour
                     waitingRecipeSOList.RemoveAt(i);
 
                     OnRecipeCompleted?.Invoke(this , EventArgs.Empty);
+                    OnDeliverySuccess?.Invoke(this , EventArgs.Empty);
 
                     return;
                 }
             }
         }
         //Playre did not deliver the correct recipe
+        OnDeliveryFail?.Invoke(this , EventArgs.Empty);
     }
 
     public List<RecipeSO> GetWaitingRecipeSOList(){
