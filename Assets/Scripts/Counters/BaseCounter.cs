@@ -7,6 +7,10 @@ public class BaseCounter : MonoBehaviour,IKitchenObjectParent
 {
     public static event EventHandler OnAnyObjectDroped;
 
+    public static void ResetStaticDate(){
+        OnAnyObjectDroped = null;
+    }
+
     [SerializeField] private Transform counterTopPoint;
     
     private KitchenObject kitchenObject;
