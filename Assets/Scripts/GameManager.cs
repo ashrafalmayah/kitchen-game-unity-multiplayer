@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
         GameOver
     }
     private State state;
-    private float waitingToStartTimer = 1f;
     private float countDownToStartTimer = 3f;
     private float gamePlayingTimer;
     private float gamePlayingTimerMax = 10f;
@@ -31,13 +30,8 @@ public class GameManager : MonoBehaviour
 
     private void Update() {
         switch(state){
-            case State.WaitingToStart: 
-                waitingToStartTimer -= Time.deltaTime;
-                if(waitingToStartTimer <= 0){
-                    state = State.CountDownToStart;
-                    OnGameStateChanged?.Invoke(this , EventArgs.Empty);
-                }
-            break;
+            case State.WaitingToStart:
+                break;
             case State.CountDownToStart: 
                 countDownToStartTimer -= Time.deltaTime;
                 if(countDownToStartTimer <= 0){
@@ -45,21 +39,29 @@ public class GameManager : MonoBehaviour
                     gamePlayingTimer = gamePlayingTimerMax;
                     OnGameStateChanged?.Invoke(this , EventArgs.Empty);
                 }
-            break;
+                break;
             case State.GamePlaying: 
                 gamePlayingTimer -= Time.deltaTime;
                 if(gamePlayingTimer <= 0){
                     state = State.GameOver;
                     OnGameStateChanged?.Invoke(this , EventArgs.Empty);
                 }
-            break;
+                break;
             case State.GameOver: 
-            break;
+                break;
         }
     }
 
     private void Start() {
         GameInput.Instance.OnGamePaused += GameInput_OnGamePaused;
+        GameInput.Instance.OnInteractAction += GameInput_OnInteractAcion;
+    }
+
+    private void GameInput_OnInteractAcion(object sender, EventArgs e){
+        if(state == State.WaitingToStart){
+            state = State.CountDownToStart;
+            OnGameStateChanged?.Invoke(this , EventArgs.Empty);
+        }
     }
 
     private void GameInput_OnGamePaused(object sender, EventArgs e){

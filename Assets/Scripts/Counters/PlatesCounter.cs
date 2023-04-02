@@ -16,7 +16,7 @@ public class PlatesCounter : BaseCounter {
     private int spawnedPlatesAmountMax = 4;
 
     private void Update() {
-        if(spawnedPlatesAmount < spawnedPlatesAmountMax){
+        if(GameManager.Instance.IsPlaying() && spawnedPlatesAmount < spawnedPlatesAmountMax){
             spawnPlateTimer += Time.deltaTime;
             if(spawnPlateTimer > spawnPlateTimerMax){
                 spawnPlateTimer = 0;
