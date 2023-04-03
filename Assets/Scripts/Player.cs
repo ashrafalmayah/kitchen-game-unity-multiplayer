@@ -134,6 +134,10 @@ public class Player : MonoBehaviour,IKitchenObjectParent
         });
     }
 
+    public BaseCounter GetSelectedCounter(){
+        return selectedCounter;
+    }
+
     public Transform GetKitchenObjectFollowTransform(){
         return playerObjectHoldPoint;
     }

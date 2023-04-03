@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System;
 
@@ -20,6 +21,7 @@ public class TutorialUI : MonoBehaviour
     private void Start() {
         GameInput.Instance.OnBindingRebound += GameInput_OnBindingReboud;
         GameManager.Instance.OnGameStateChanged += GameManager_OnGameStateChanged;
+        
 
         Show();
 

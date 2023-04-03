@@ -45,6 +45,19 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Pause.performed += Pause_Performed;
     }
 
+    private void Start() {
+        TouchControl.Instance.OnTouchInteractAction += TouchControl_OnTouchInteractAciton;
+        TouchControl.Instance.OnTouchInteractAlternateAction += TouchControl_OnTouchInteractAlternateAciton;
+    }
+
+    private void TouchControl_OnTouchInteractAlternateAciton(object sender, EventArgs e){
+        OnInteractAlternateAction?.Invoke(this , EventArgs.Empty);
+    }
+
+    private void TouchControl_OnTouchInteractAciton(object sender, EventArgs e){
+        OnInteractAction?.Invoke(this , EventArgs.Empty);
+    }
+
     private void OnDestroy() {
         playerInputActions.Player.Interact.performed -= Interact_Performed;
         playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_Performed;
@@ -64,6 +77,7 @@ public class GameInput : MonoBehaviour
     private void Interact_Performed(InputAction.CallbackContext obj){
         OnInteractAction?.Invoke(this, EventArgs.Empty);
     }
+
     public Vector2 GetMovementVectorNormalized(){
         Vector2 inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
 

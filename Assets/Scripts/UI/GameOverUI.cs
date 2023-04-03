@@ -2,12 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField]private TextMeshProUGUI recipesDeliveredText;
+    [SerializeField]private Button restartButton;
 
+    private void Awake() {
+        restartButton.onClick.AddListener(() => {
+            Loader.Load(Loader.Scene.GameScene);
+        });
+    }
+    
     private void Start() {
         GameManager.Instance.OnGameStateChanged += GameManager_OnGameStateChanged;
         
