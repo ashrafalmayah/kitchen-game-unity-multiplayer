@@ -10,6 +10,12 @@ public class GamePauseUI : MonoBehaviour
     [SerializeField]private Button settingsButton;
     [SerializeField]private Button mainMenuButton;
 
+    enum GameDevice {
+        PC,
+        Mobile,
+    }
+    [SerializeField]private GameDevice gameDevice;
+
     private void Awake() {
         resumeButton.onClick.AddListener(() => {
             GameManager.Instance.TogglePauseGame();
@@ -19,7 +25,11 @@ public class GamePauseUI : MonoBehaviour
         });
         settingsButton.onClick.AddListener(() => {
             Hide();
-            SettingsUI.Instance.Show(Show);
+            if(gameDevice == GameDevice.PC){
+                SettingsUI.Instance.Show(Show);
+            }else{
+                MobileSettingsUI.Instance.Show(Show);
+            }
         });
     }
 

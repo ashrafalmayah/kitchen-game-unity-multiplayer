@@ -93,12 +93,13 @@ public class Player : MonoBehaviour,IKitchenObjectParent
         float playerHeight = 1.8f;
         float playerRadius = .7f;
         bool canMove = !Physics.CapsuleCast(transform.position , transform.position + Vector3.up * playerHeight , playerRadius , moveDirection , moveDistance);
+        Vector3 rotationDirection = moveDirection;
         
         if(!canMove){
             //can't move
             //Attempt moving in only X axis
             Vector3 moveDirectionX = new Vector3(moveDirection.x,0,0);
-            canMove = (moveDirection.x > 0.5 || moveDirection.x < -0.5) && !Physics.CapsuleCast(transform.position , transform.position + Vector3.up * playerHeight , playerRadius , moveDirectionX , moveDistance);
+            canMove = (moveDirection.x > 0.125 || moveDirection.x < -0.125) && !Physics.CapsuleCast(transform.position , transform.position + Vector3.up * playerHeight , playerRadius , moveDirectionX , moveDistance);
             if(canMove){
                 moveDirection = moveDirectionX;
             }
@@ -106,7 +107,7 @@ public class Player : MonoBehaviour,IKitchenObjectParent
                 //Can't move in the X axis
                 //Attempt moving in the only Z axis
                 Vector3 moveDirectionZ = new Vector3(0,0,moveDirection.z);
-                canMove = (moveDirection.z > 0.5 || moveDirection.z < -0.5) && !Physics.CapsuleCast(transform.position , transform.position + Vector3.up * playerHeight , playerRadius , moveDirectionZ , moveDistance);
+                canMove = (moveDirection.z > 0.125 || moveDirection.z < -0.125) && !Physics.CapsuleCast(transform.position , transform.position + Vector3.up * playerHeight , playerRadius , moveDirectionZ , moveDistance);
                 if(canMove){
                     moveDirection = moveDirectionZ;
                 }else{
@@ -123,7 +124,7 @@ public class Player : MonoBehaviour,IKitchenObjectParent
         
         float rotateSpeed = 10f;
         if(isWalking)
-        transform.forward = Vector3.Slerp(transform.forward,moveDirection,Time.deltaTime * rotateSpeed);
+        transform.forward = Vector3.Slerp(transform.forward,rotationDirection,Time.deltaTime * rotateSpeed);
     }
 
     private void SetSelectedCounter(BaseCounter selectedCounter){

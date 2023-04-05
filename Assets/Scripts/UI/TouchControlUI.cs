@@ -102,7 +102,9 @@ public class TouchControlUI : MonoBehaviour
             pickupDropButton.gameObject.SetActive(true);
         }else{
             pickupDropButton.gameObject.SetActive(false);
-        }if(canCut){
+        }
+        
+        if(canCut){
             cuttingButton.gameObject.SetActive(true);
         }else{
             cuttingButton.gameObject.SetActive(false);

@@ -14,6 +14,9 @@ public class TouchControl : MonoBehaviour
 
     [SerializeField]private Button pickupDropButton;
     [SerializeField]private Button cuttingButton;
+    [SerializeField]private GameObject joyStickPrefab;
+    [SerializeField]private Canvas canvas;
+    private RectTransform spawnedJoyStick;
 
 
     private void Awake() {
@@ -29,4 +32,27 @@ public class TouchControl : MonoBehaviour
             OnTouchInteractAction?.Invoke(this , EventArgs.Empty);
         });
     }
+
+    private void Start() {
+        GameInput.Instance.OnTouchPerformed += GameInput_OnTouchPerformed;
+    }
+
+
+    private void Update() {
+        
+    }
+
+    private void GameInput_OnTouchPerformed(object sender, EventArgs e){
+        Vector2 touchPositionOnScreen = GameInput.Instance.GetTouchPotitionVector();
+        float canvasScale = canvas.transform.localScale.x;
+        Vector2 touchPositionInCanvasSpace = (touchPositionOnScreen / canvasScale);
+        float screenCenterPositionX = canvas.GetComponent<RectTransform>().rect.width / 2;
+        if(touchPositionInCanvasSpace.x < screenCenterPositionX){
+            if(spawnedJoyStick == null){
+                spawnedJoyStick = Instantiate(joyStickPrefab , this.gameObject.transform).GetComponent<RectTransform>();
+            }
+            spawnedJoyStick.anchoredPosition = touchPositionInCanvasSpace;
+        }
+    }
+
 }

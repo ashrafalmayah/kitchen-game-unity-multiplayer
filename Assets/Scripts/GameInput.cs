@@ -7,12 +7,14 @@ using UnityEngine.InputSystem;
 public class GameInput : MonoBehaviour
 {
     public static GameInput Instance { get; private set; }
+
     private const string PLAYER_PREFS_BINDINGS = "InputBindings";
 
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAlternateAction;
     public event EventHandler OnGamePaused;
     public event EventHandler OnBindingRebound;
+    public event EventHandler OnTouchPerformed;
 
     public enum Binding {
         Move_Up,
@@ -43,6 +45,11 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Interact.performed += Interact_Performed;
         playerInputActions.Player.InteractAlternate.performed += InteractAlternate_Performed;
         playerInputActions.Player.Pause.performed += Pause_Performed;
+        playerInputActions.Player.TouchPosition.performed += TouchPosition_Performed;
+    }
+
+    private void TouchPosition_Performed(InputAction.CallbackContext obj){
+        OnTouchPerformed?.Invoke(this , EventArgs.Empty);
     }
 
     private void Start() {
@@ -82,6 +89,12 @@ public class GameInput : MonoBehaviour
         Vector2 inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
 
         inputVector = inputVector.normalized;
+        
+        return inputVector;
+    }
+
+    public Vector2 GetTouchPotitionVector(){
+        Vector2 inputVector = playerInputActions.Player.TouchPosition.ReadValue<Vector2>();
         
         return inputVector;
     }
